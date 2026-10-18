@@ -888,7 +888,10 @@
 
   $("loginForm").addEventListener("submit", async event => {
     event.preventDefault();
-    if (!db) return;
+    if (!db) {
+  adminMessage("خطا: اتصال به پایگاه داده برقرار نشده است.");
+  return;
+}
 
     const { error } = await db.auth.signInWithPassword({
       email: $("adminEmail").value.trim(),
