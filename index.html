@@ -3,195 +3,1007 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
   <title>جهان آهن | فروش آهن‌آلات</title>
-  <meta name="description" content="جهان آهن، مرجع استعلام قیمت و سفارش آهن‌آلات و مقاطع فولادی">
+
   <style>
+    :root {
+      --gold: #d6ad50;
+      --gold-light: #f3d68b;
+      --black: #101010;
+      --panel: #1b1b1b;
+      --text: #f6f3eb;
+      --muted: #b8b5ad;
+      --border: #37332a;
+      --green: #25d366;
+    }
+
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
+      background: var(--black);
+      color: var(--text);
       font-family: Tahoma, Arial, sans-serif;
-      background: #101010;
-      color: #fff;
-      line-height: 1.8;
+      line-height: 1.9;
+    }
+
+    button, input, textarea, select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
     }
 
     header {
-      background: #080808;
-      border-bottom: 2px solid #d4af37;
-      padding: 18px 5%;
+      border-bottom: 1px solid var(--border);
+      background: #090909;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    .nav {
+      min-height: 76px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      gap: 16px;
       flex-wrap: wrap;
-      gap: 12px;
+      padding: 12px 0;
     }
 
     .logo {
-      color: #d4af37;
-      font-size: 27px;
+      color: var(--gold);
+      font-size: 25px;
       font-weight: bold;
     }
 
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 8px;
+    .nav a, .nav button {
+      margin-right: 10px;
     }
 
     .hero {
-      text-align: center;
-      padding: 75px 20px;
-      background: linear-gradient(135deg, #191919, #30250b);
+      padding: 65px 0;
+      background:
+        radial-gradient(ellipse at top left, #3b2d13 0%, transparent 55%),
+        linear-gradient(130deg, #181818, #080808);
     }
 
     .hero h1 {
-      color: #e1bd52;
-      font-size: 34px;
+      font-size: clamp(30px, 6vw, 48px);
+      line-height: 1.5;
+      margin: 0 0 12px;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .muted {
+      color: var(--muted);
     }
 
     .hero p {
-      color: #ddd;
       max-width: 650px;
-      margin: 15px auto 25px;
     }
 
     .button {
       display: inline-block;
-      background: #d4af37;
-      color: #111;
-      padding: 11px 24px;
-      border-radius: 6px;
-      text-decoration: none;
+      border: 0;
+      border-radius: 9px;
+      padding: 10px 17px;
       font-weight: bold;
-      margin: 5px;
-      border: none;
-      cursor: pointer;
+      background: var(--gold);
+      color: #17130a;
+    }
+
+    .button:hover {
+      background: var(--gold-light);
+    }
+
+    .button.secondary {
+      color: var(--text);
+      background: #303030;
+      border: 1px solid #4a4a4a;
+    }
+
+    .button.danger {
+      color: white;
+      background: #9f3030;
     }
 
     section {
-      padding: 35px 5%;
+      padding: 35px 0;
     }
 
     .section-title {
-      text-align: center;
-      color: #d4af37;
-      margin-bottom: 25px;
+      font-size: 26px;
+      margin-bottom: 5px;
     }
 
-    .products {
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 18px;
+      margin-top: 22px;
     }
 
-    .card {
-      background: #1c1c1c;
-      border: 1px solid #49402a;
-      border-radius: 10px;
-      padding: 22px;
-      text-align: center;
+    .card, .panel {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 20px;
     }
 
-    .card h3 {
-      color: #e1bd52;
+    .product-icon {
+      font-size: 38px;
     }
 
     .price {
-      color: #ddd;
+      color: var(--gold-light);
+      font-size: 19px;
+      font-weight: bold;
     }
 
-    .contact {
-      background: #191919;
-      text-align: center;
+    .field {
+      width: 100%;
+      padding: 11px;
+      margin: 5px 0 12px;
+      color: var(--text);
+      background: #101010;
+      border: 1px solid #49443a;
+      border-radius: 8px;
+    }
+
+    textarea.field {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    .notice {
+      border: 1px solid #594824;
+      color: #ead8a6;
+      padding: 12px;
+      border-radius: 9px;
+      margin: 12px 0;
+      font-size: 13px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .order-item {
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+    }
+
+    .status {
+      color: var(--gold-light);
+      font-weight: bold;
+    }
+
+    .cart-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 0;
     }
 
     footer {
+      margin-top: 35px;
+      padding: 25px 0;
       background: #080808;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
       text-align: center;
-      padding: 20px;
-      color: #aaa;
-      border-top: 1px solid #d4af37;
+    }
+
+    .whatsapp {
+      background: var(--green);
+      color: #071b0c;
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .message {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      background: #252525;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
     }
 
     @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 26px;
+      .hero {
+        padding: 42px 0;
       }
 
-      header {
+      .nav {
         justify-content: center;
+      }
+
+      .logo {
+        width: 100%;
+        text-align: center;
       }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="logo">⚒ جهان آهن</div>
-    <nav>
-      <a href="#home">صفحه اصلی</a>
+
+<header>
+  <div class="container nav">
+    <a href="#" class="logo">⚒ جهان آهن</a>
+    <div>
       <a href="#products">محصولات</a>
-      <a href="#contact">تماس با ما</a>
-    </nav>
-  </header>
+      <a href="#cart">سبد سفارش</a>
+      <a href="#contact">تماس</a>
+      <button class="button secondary" id="adminToggle">
+        مدیریت
+      </button>
+    </div>
+  </div>
+</header>
 
-  <main>
-    <section class="hero" id="home">
-      <h1>جهان آهن؛ همراه مطمئن صنعت ساختمان</h1>
-      <p>
-        عرضه و استعلام قیمت انواع آهن‌آلات و مقاطع فولادی.
-        برای دریافت قیمت روز و ثبت درخواست خرید با ما در ارتباط باشید.
+<main>
+  <section class="hero">
+    <div class="container">
+      <p style="color:var(--gold)">مرجع تأمین آهن‌آلات ساختمانی</p>
+      <h1>قدرت سازه شما،<br><span>با جهان آهن</span></h1>
+      <p class="muted">
+        خرید و استعلام آهن‌آلات با امکان ثبت سفارش و پیگیری درخواست.
+        قیمت‌ها باید پیش از نهایی شدن سفارش توسط فروشگاه تأیید شوند.
       </p>
-      <a href="#products" class="button">مشاهده محصولات</a>
-      <a href="#contact" class="button">استعلام قیمت</a>
-    </section>
+      <a class="button" href="#products">مشاهده محصولات</a>
+      <a class="button secondary" href="#contact">ارتباط با فروشگاه</a>
+    </div>
+  </section>
 
-    <section id="products">
-      <h2 class="section-title">محصولات جهان آهن</h2>
+  <section id="products" class="container">
+    <h2 class="section-title">محصولات آهن‌آلات</h2>
+    <p class="muted">محصولات و قیمت‌های ثبت‌شده در فروشگاه</p>
 
-      <div class="products">
-        <article class="card">
-          <h3>میلگرد</h3>
-          <p>انواع میلگرد ساختمانی در سایزهای مختلف</p>
-          <p class="price">قیمت: استعلام روز</p>
-          <a class="button" href="#contact">استعلام قیمت</a>
-        </article>
+    <div id="productMessage" class="message">در حال دریافت محصولات...</div>
+    <div id="productsGrid" class="grid"></div>
+  </section>
 
-        <article class="card">
-          <h3>تیرآهن</h3>
-          <p>انواع تیرآهن مناسب پروژه‌های ساختمانی</p>
-          <p class="price">قیمت: استعلام روز</p>
-          <a class="button" href="#contact">استعلام قیمت</a>
-        </article>
+  <section id="cart" class="container">
+    <h2 class="section-title">ثبت سفارش</h2>
 
-        <article class="card">
-          <h3>ورق فولادی</h3>
-          <p>انواع ورق سیاه و ورق فولادی</p>
-          <p class="price">قیمت: استعلام روز</p>
-          <a class="button" href="#contact">استعلام قیمت</a>
-        </article>
+    <div class="panel">
+      <div id="cartItems"></div>
 
-        <article class="card">
-          <h3>قوطی و پروفیل</h3>
-          <p>انواع قوطی و پروفیل صنعتی و ساختمانی</p>
-          <p class="price">قیمت: استعلام روز</p>
-          <a class="button" href="#contact">استعلام قیمت</a>
-        </article>
+      <p class="muted">
+        قیمت‌های نمایش‌داده‌شده تقریبی هستند.
+        مبلغ نهایی پس از بررسی فروشگاه مشخص می‌شود.
+      </p>
+
+      <form id="orderForm">
+        <div class="form-grid">
+          <div>
+            <label for="customerName">نام و نام خانوادگی</label>
+            <input id="customerName" class="field"
+              maxlength="100" required>
+          </div>
+
+          <div>
+            <label for="customerPhone">شماره تماس</label>
+            <input id="customerPhone" class="field"
+              type="tel" maxlength="30" required>
+          </div>
+        </div>
+
+        <label for="customerAddress">آدرس یا محل تحویل</label>
+        <textarea id="customerAddress" class="field"
+          maxlength="1000"></textarea>
+
+        <label for="customerNotes">توضیحات سفارش</label>
+        <textarea id="customerNotes" class="field"
+          maxlength="1000"></textarea>
+
+        <button type="submit" class="button">
+          ثبت درخواست سفارش
+        </button>
+      </form>
+
+      <div id="orderMessage" class="message hidden"></div>
+    </div>
+  </section>
+
+  <section id="contact" class="container">
+    <div class="panel">
+      <h2>ارتباط با جهان آهن</h2>
+      <p class="muted">
+        برای استعلام قیمت روز و هماهنگی تحویل با فروشگاه تماس بگیرید.
+      </p>
+      <p>
+        شماره تماس و راه ارتباطی فروشگاه را در تنظیمات این فایل وارد کنید.
+      </p>
+    </div>
+  </section>
+
+  <section id="admin" class="container hidden">
+    <h2 class="section-title">پنل مدیریت جهان آهن</h2>
+
+    <div class="panel">
+      <div id="loginSection">
+        <h3>ورود مدیر</h3>
+
+        <form id="loginForm">
+          <label for="adminEmail">ایمیل مدیر</label>
+          <input id="adminEmail" class="field"
+            type="email" autocomplete="username" required>
+
+          <label for="adminPassword">رمز عبور</label>
+          <input id="adminPassword" class="field"
+            type="password" autocomplete="current-password" required>
+
+          <button class="button" type="submit">ورود</button>
+        </form>
       </div>
-    </section>
 
-    <section class="contact" id="contact">
-      <h2 class="section-title">استعلام قیمت و ثبت درخواست خرید</h2>
-      <p>برای دریافت قیمت روز محصولات، با فروشگاه جهان آهن تماس بگیرید.</p>
-      <p>شماره تماس و راه‌های ارتباطی فروشگاه به‌زودی اضافه می‌شوند.</p>
-    </section>
-  </main>
+      <div id="adminSection" class="hidden">
+        <div class="row">
+          <h3>مدیریت فروشگاه</h3>
+          <button id="logoutButton" class="button secondary">
+            خروج
+          </button>
+        </div>
 
-  <footer>
-    © جهان آهن | تمامی حقوق محفوظ است.
-  </footer>
+        <h3>افزودن یا ویرایش محصول</h3>
+
+        <form id="productForm">
+          <input type="hidden" id="editProductId">
+
+          <label for="productName">نام محصول</label>
+          <input id="productName" class="field"
+            maxlength="150" required>
+
+          <label for="productDescription">توضیحات</label>
+          <textarea id="productDescription" class="field"
+            maxlength="1000"></textarea>
+
+          <div class="form-grid">
+            <div>
+              <label for="productPrice">قیمت هر واحد (تومان)</label>
+              <input id="productPrice" class="field"
+                type="number" min="0" step="1" required>
+            </div>
+
+            <div>
+              <label for="productUnit">واحد فروش</label>
+              <select id="productUnit" class="field">
+                <option value="کیلوگرم">کیلوگرم</option>
+                <option value="شاخه">شاخه</option>
+                <option value="عدد">عدد</option>
+                <option value="تن">تن</option>
+                <option value="ورق">ورق</option>
+              </select>
+            </div>
+          </div>
+
+          <label for="productImage">آدرس تصویر محصول (اختیاری)</label>
+          <input id="productImage" class="field"
+            type="url" maxlength="1000">
+
+          <label>
+            <input type="checkbox" id="productAvailable" checked>
+            محصول موجود و قابل نمایش است
+          </label>
+
+          <button class="button" type="submit">ذخیره محصول</button>
+          <button class="button secondary" type="button"
+            id="cancelEdit">پاک کردن فرم</button>
+        </form>
+
+        <div id="adminMessage" class="message"></div>
+
+        <h3>محصولات ثبت‌شده</h3>
+        <div id="adminProducts"></div>
+
+        <h3>سفارش‌های مشتریان</h3>
+        <div id="adminOrders"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <strong style="color:var(--gold)">جهان آهن</strong>
+    <p>تأمین آهن‌آلات ساختمانی</p>
+    <p>قیمت نهایی پس از تأیید فروشگاه مشخص می‌شود.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+(() => {
+  /*
+    این دو مقدار را از داشبورد Supabase وارد کن.
+    فقط Project URL و Publishable Key مجازند.
+    هرگز service_role یا sb_secret را اینجا قرار نده.
+  */
+
+  const SUPABASE_URL = "https://ngujvmvpomwayilvmduz.supabase.co/rest/v1/";
+  const SUPABASE_KEY = "sb_publishable_NzydfE3kzUknINQQyjNO7A_Kf8ZcODn";
+
+  const configured =
+    SUPABASE_URL.startsWith("https://") &&
+    !SUPABASE_URL.includes("PASTE_") &&
+    SUPABASE_KEY.length > 20 &&
+    !SUPABASE_KEY.includes("PASTE_");
+
+  const $ = id => document.getElementById(id);
+
+  let db = null;
+  let products = [];
+  let cart = new Map();
+  let isAdmin = false;
+
+  function message(id, text) {
+    const el = $(id);
+    el.textContent = text;
+    el.classList.remove("hidden");
+  }
+
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, ch => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[ch]);
+  }
+
+  function money(value) {
+    return Number(value || 0).toLocaleString("fa-IR") + " تومان";
+  }
+
+  function safeImage(url) {
+    try {
+      const u = new URL(url);
+      return u.protocol === "https:" ? u.href : "";
+    } catch {
+      return "";
+    }
+  }
+
+  function adminMessage(text) {
+    message("adminMessage", text);
+  }
+
+  function cartTotal() {
+    return [...cart.entries()].reduce((sum, [id, quantity]) => {
+      const p = products.find(x => String(x.id) === String(id));
+      return sum + (p ? Number(p.price) * quantity : 0);
+    }, 0);
+  }
+
+  function renderCart() {
+    const host = $("cartItems");
+
+    if (cart.size === 0) {
+      host.textContent = "سبد سفارش خالی است.";
+      return;
+    }
+
+    host.replaceChildren();
+
+    for (const [id, quantity] of cart.entries()) {
+      const p = products.find(x => String(x.id) === String(id));
+      if (!p) continue;
+
+      const row = document.createElement("div");
+      row.className = "cart-line";
+
+      const title = document.createElement("span");
+      title.textContent = `${p.name} — ${quantity} ${p.unit}`;
+
+      const actions = document.createElement("div");
+
+      const minus = document.createElement("button");
+      minus.className = "button secondary";
+      minus.textContent = "−";
+      minus.type = "button";
+      minus.onclick = () => {
+        if (quantity <= 1) cart.delete(id);
+        else cart.set(id, quantity - 1);
+        renderCart();
+      };
+
+      const plus = document.createElement("button");
+      plus.className = "button secondary";
+      plus.textContent = "+";
+      plus.type = "button";
+      plus.onclick = () => {
+        if (quantity < 100000) cart.set(id, quantity + 1);
+        renderCart();
+      };
+
+      actions.append(minus, plus);
+      row.append(title, actions);
+      host.append(row);
+    }
+
+    const total = document.createElement("p");
+    total.className = "price";
+    total.textContent = "برآورد اولیه: " + money(cartTotal());
+    host.append(total);
+  }
+
+  function renderProducts() {
+    const grid = $("productsGrid");
+    grid.replaceChildren();
+
+    $("productMessage").textContent = products.length
+      ? "برای افزودن محصول به سفارش، دکمه مربوطه را بزنید."
+      : "هنوز محصولی ثبت نشده است.";
+
+    for (const p of products) {
+      const card = document.createElement("article");
+      card.className = "card";
+
+      const imageURL = safeImage(p.image_url);
+
+      if (imageURL) {
+        const img = document.createElement("img");
+        img.src = imageURL;
+        img.alt = p.name;
+        img.loading = "lazy";
+        img.style.cssText =
+          "width:100%;height:150px;object-fit:contain;border-radius:8px";
+        card.append(img);
+      } else {
+        const icon = document.createElement("div");
+        icon.className = "product-icon";
+        icon.textContent = "🏗️";
+        card.append(icon);
+      }
+
+      const name = document.createElement("h3");
+      name.textContent = p.name;
+
+      const description = document.createElement("p");
+      description.className = "muted";
+      description.textContent = p.description || "آهن‌آلات ساختمانی";
+
+      const price = document.createElement("div");
+      price.className = "price";
+      price.textContent = money(p.price) + " / " + p.unit;
+
+      const button = document.createElement("button");
+      button.className = "button";
+      button.type = "button";
+      button.textContent = "افزودن به سفارش";
+
+      button.onclick = () => {
+        cart.set(String(p.id), Math.min(
+          100000, (cart.get(String(p.id)) || 0) + 1
+        ));
+        renderCart();
+        $("cart").scrollIntoView({ behavior: "smooth" });
+      };
+
+      card.append(name, description, price, button);
+      grid.append(card);
+    }
+  }
+
+  async function loadProducts() {
+    if (!db) return;
+
+    const { data, error } = await db
+      .from("products")
+      .select("*")
+      .eq("is_available", true)
+      .order("id", { ascending: true });
+
+    if (error) {
+      $("productMessage").textContent =
+        "دریافت محصولات ناموفق بود. تنظیمات اتصال و دسترسی‌ها را بررسی کنید.";
+      console.error(error);
+      return;
+    }
+
+    products = data || [];
+    renderProducts();
+    renderCart();
+  }
+
+  function resetProductForm() {
+    $("productForm").reset();
+    $("editProductId").value = "";
+    $("productAvailable").checked = true;
+  }
+
+  async function loadAdminProducts() {
+    const { data, error } = await db
+      .from("products")
+      .select("*")
+      .order("id", { ascending: false });
+
+    if (error) {
+      adminMessage("دریافت محصولات مدیریت ناموفق بود.");
+      console.error(error);
+      return;
+    }
+
+    const host = $("adminProducts");
+    host.replaceChildren();
+
+    for (const p of data || []) {
+      const box = document.createElement("div");
+      box.className = "order-item";
+
+      const title = document.createElement("strong");
+      title.textContent = p.name + " — " + money(p.price);
+
+      const status = document.createElement("p");
+      status.textContent = p.is_available ? "قابل نمایش" : "غیرفعال";
+
+      const edit = document.createElement("button");
+      edit.className = "button secondary";
+      edit.textContent = "ویرایش";
+      edit.type = "button";
+      edit.onclick = () => {
+        $("editProductId").value = p.id;
+        $("productName").value = p.name;
+        $("productDescription").value = p.description || "";
+        $("productPrice").value = p.price;
+        $("productUnit").value = p.unit || "کیلوگرم";
+        $("productImage").value = p.image_url || "";
+        $("productAvailable").checked = p.is_available;
+        $("productForm").scrollIntoView({ behavior: "smooth" });
+      };
+
+      const del = document.createElement("button");
+      del.className = "button danger";
+      del.textContent = "حذف";
+      del.type = "button";
+      del.onclick = async () => {
+        if (!confirm("این محصول حذف شود؟")) return;
+
+        const { error: delError } = await db
+          .from("products")
+          .delete()
+          .eq("id", p.id);
+
+        if (delError) {
+          adminMessage("حذف ناموفق بود.");
+          console.error(delError);
+          return;
+        }
+
+        await loadAdminProducts();
+        await loadProducts();
+      };
+
+      box.append(title, status, edit, del);
+      host.append(box);
+    }
+
+    products = data || [];
+    renderProducts();
+    renderCart();
+  }
+
+  async function loadAdminOrders() {
+    const host = $("adminOrders");
+    host.replaceChildren();
+
+    const { data, error } = await db
+      .from("orders")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      adminMessage("دریافت سفارش‌ها ناموفق بود.");
+      console.error(error);
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      host.textContent = "هنوز سفارشی ثبت نشده است.";
+      return;
+    }
+
+    const statuses = [
+      "جدید", "در حال بررسی", "تأیید شده", "ارسال شده", "لغو شده"
+    ];
+
+    for (const order of data) {
+      const box = document.createElement("div");
+      box.className = "order-item";
+
+      const title = document.createElement("h4");
+      title.textContent = "سفارش شماره " + order.id;
+
+      const customer = document.createElement("p");
+      customer.textContent =
+        "مشتری: " + order.customer_name + " — تلفن: " + order.phone;
+
+      const address = document.createElement("p");
+      address.textContent = "آدرس: " + (order.address || "ثبت نشده");
+
+      const notes = document.createElement("p");
+      notes.textContent = "توضیحات: " + (order.notes || "ندارد");
+
+      const items = document.createElement("pre");
+      items.style.whiteSpace = "pre-wrap";
+      items.textContent = JSON.stringify(order.items, null, 2);
+
+      const total = document.createElement("p");
+      total.textContent =
+        "مبلغ ذخیره‌شده: " + money(order.total_amount) +
+        " — این مبلغ تا بررسی فروشگاه تأیید نشده است.";
+
+      const select = document.createElement("select");
+      select.className = "field";
+
+      for (const s of statuses) {
+        const option = document.createElement("option");
+        option.value = s;
+        option.textContent = s;
+        option.selected = s === order.status;
+        select.append(option);
+      }
+
+      const update = document.createElement("button");
+      update.className = "button";
+      update.textContent = "ذخیره وضعیت";
+      update.type = "button";
+      update.onclick = async () => {
+        const { error: updateError } = await db
+          .from("orders")
+          .update({ status: select.value })
+          .eq("id", order.id);
+
+        if (updateError) {
+          adminMessage("تغییر وضعیت ذخیره نشد.");
+          console.error(updateError);
+        } else {
+          adminMessage("وضعیت سفارش ذخیره شد.");
+          await loadAdminOrders();
+        }
+      };
+
+      box.append(title, customer, address, notes, items, total, select, update);
+      host.append(box);
+    }
+  }
+
+  $("orderForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    if (!db) {
+      message("orderMessage", "اتصال پایگاه داده هنوز تنظیم نشده است.");
+      return;
+    }
+
+    if (cart.size === 0) {
+      message("orderMessage", "ابتدا یک محصول به سفارش اضافه کنید.");
+      return;
+    }
+
+    const name = $("customerName").value.trim();
+    const phone = $("customerPhone").value.trim();
+
+    if (!name || !phone) {
+      message("orderMessage", "نام و شماره تماس را وارد کنید.");
+      return;
+    }
+
+    const items = [...cart.entries()].map(([id, quantity]) => {
+      const p = products.find(x => String(x.id) === String(id));
+      return {
+        product_id: Number(id),
+        name: p ? p.name : "محصول",
+        quantity: quantity,
+        unit: p ? p.unit : ""
+      };
+    });
+
+    const { data, error } = await db
+      .from("orders")
+      .insert({
+        customer_name: name,
+        phone: phone,
+        address: $("customerAddress").value.trim(),
+        notes: $("customerNotes").value.trim(),
+        items: items,
+        total_amount: 0,
+        status: "جدید"
+      })
+      .select("id")
+      .single();
+
+    if (error) {
+      console.error(error);
+      message(
+        "orderMessage",
+        "ثبت سفارش انجام نشد. اتصال اینترنت یا تنظیمات پایگاه داده را بررسی کنید."
+      );
+      return;
+    }
+
+    cart.clear();
+    renderCart();
+    $("orderForm").reset();
+
+    message(
+      "orderMessage",
+      "درخواست شما ثبت شد. شماره پیگیری: " + data.id +
+      "\nفروشگاه پس از بررسی قیمت و موجودی با شما تماس می‌گیرد."
+    );
+  });
+
+  $("adminToggle").addEventListener("click", () => {
+    $("admin").classList.toggle("hidden");
+    $("admin").scrollIntoView({ behavior: "smooth" });
+  });
+
+  $("loginForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    if (!db) return;
+
+    const { error } = await db.auth.signInWithPassword({
+      email: $("adminEmail").value.trim(),
+      password: $("adminPassword").value
+    });
+
+    if (error) {
+      adminMessage("ورود ناموفق بود. ایمیل، رمز و تأیید حساب را بررسی کنید.");
+      console.error(error);
+      return;
+    }
+
+    $("adminPassword").value = "";
+    await checkAdmin();
+  });
+
+  async function checkAdmin() {
+    if (!db) return;
+
+    const { data: sessionData } = await db.auth.getSession();
+    const session = sessionData.session;
+
+    isAdmin = false;
+
+    if (session) {
+      const { data, error } = await db.rpc("is_store_admin");
+
+      if (!error && data === true) {
+        isAdmin = true;
+      }
+    }
+
+    $("loginSection").classList.toggle("hidden", isAdmin);
+    $("adminSection").classList.toggle("hidden", !isAdmin);
+
+    if (isAdmin) {
+      await loadAdminProducts();
+      await loadAdminOrders();
+    }
+  }
+
+  $("logoutButton").addEventListener("click", async () => {
+    await db.auth.signOut();
+    isAdmin = false;
+    $("adminSection").classList.add("hidden");
+    $("loginSection").classList.remove("hidden");
+  });
+
+  $("productForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    if (!isAdmin) {
+      adminMessage("ابتدا به‌عنوان مدیر وارد شوید.");
+      return;
+    }
+
+    const name = $("productName").value.trim();
+    const price = Number($("productPrice").value);
+
+    if (!name || !Number.isFinite(price) || price < 0) {
+      adminMessage("نام و قیمت معتبر وارد کنید.");
+      return;
+    }
+
+    const product = {
+      name,
+      description: $("productDescription").value.trim(),
+      price,
+      unit: $("productUnit").value,
+      image_url: $("productImage").value.trim(),
+      is_available: $("productAvailable").checked
+    };
+
+    const id = $("editProductId").value;
+
+    let result;
+
+    if (id) {
+      result = await db.from("products").update(product).eq("id", id);
+    } else {
+      result = await db.from("products").insert(product);
+    }
+
+    if (result.error) {
+      console.error(result.error);
+      adminMessage("ذخیره محصول ناموفق بود. دسترسی مدیر را بررسی کنید.");
+      return;
+    }
+
+    resetProductForm();
+    adminMessage("محصول ذخیره شد.");
+    await loadAdminProducts();
+  });
+
+  $("cancelEdit").addEventListener("click", resetProductForm);
+
+  if (!configured) {
+    $("productMessage").textContent =
+      "برای فعال شدن فروشگاه، Project URL و Publishable Key در کد تنظیم شوند.";
+    $("loginSection").classList.remove("hidden");
+  } else if (!window.supabase) {
+    $("productMessage").textContent =
+      "کتابخانه اتصال بارگذاری نشد. اتصال اینترنت را بررسی کنید.";
+  } else {
+    db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    loadProducts();
+    checkAdmin();
+
+    db.auth.onAuthStateChange(() => {
+      setTimeout(checkAdmin, 0);
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
